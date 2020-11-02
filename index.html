@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance API</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+  
+  <script>
+    /** 
+      DNS查询耗时 ：domainLookupEnd - domainLookupStart
+
+      TCP链接耗时 ：connectEnd - connectStart
+
+      request请求耗时 ：responseEnd - responseStart
+
+      解析dom树耗时 ： domComplete - domInteractive
+
+      白屏时间 ：responseStart - navigationStart
+
+      domeady时间 ：domContentLoadedEventEnd - navigationStart
+
+      onload时间 ：loadEventEnd - navigationStart
+     */
+
+    
+    if (window.performance) {
+      fetch('http://localhost:3000').then(res =>{
+        console.log('res', res)
+      })
+      const { timing } = window.performance
+      let {
+        domainLookupEnd, domainLookupStart,
+        connectEnd, connectStart,
+        responseEnd, responseStart,
+        domComplete, domInteractive,
+        domContentLoadedEventEnd,
+        loadEventEnd, navigationStart
+      } = timing
+      console.log('[DNS查询耗时]', domainLookupEnd - domainLookupStart)
+      console.log('[TCP链接耗时]', connectEnd - connectStart)
+      console.log('[request请求耗时]', responseEnd - responseStart)
+      console.log('[解析dom树耗时]', domComplete - domInteractive)
+      console.log('[白屏时间]', responseStart - navigationStart)
+      console.log('[domeady时间]', domContentLoadedEventEnd - navigationStart)
+      console.log('[onload时间]', loadEventEnd - navigationStart)
+    }
+
+    
+  </script>
+</body>
+</html>
